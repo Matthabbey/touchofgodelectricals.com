@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import { AnimatePresence, m } from "motion/react";
 import { faqs } from "@/lib/content";
 import { waLink } from "@/lib/site-config";
 import { Icon } from "./Icons";
+import { EASE, Reveal, RevealGroup, RevealItem } from "./motion/Reveal";
 import SectionHeader from "./SectionHeader";
 
 function FaqItem({
@@ -19,20 +21,11 @@ function FaqItem({
   open: boolean;
   onToggle: () => void;
 }) {
-  const panelRef = useRef<HTMLDivElement | null>(null);
-  const [maxHeight, setMaxHeight] = useState("0px");
-
-  useEffect(() => {
-    const el = panelRef.current;
-    if (!el) return;
-    setMaxHeight(open ? `${el.scrollHeight}px` : "0px");
-  }, [open]);
-
   const panelId = `faq-panel-${index}`;
   const btnId = `faq-button-${index}`;
 
   return (
-    <div className={`faq-item${open ? " active" : ""}`}>
+    <RevealItem className={`faq-item${open ? " active" : ""}`} y={16}>
       <h3>
         <button
           type="button"
@@ -43,22 +36,34 @@ function FaqItem({
           onClick={onToggle}
         >
           <span className="faq-question-title">{question}</span>
-          <span className="faq-toggle-icon" aria-hidden="true">
+          <m.span
+            className="faq-toggle-icon"
+            aria-hidden="true"
+            animate={{ rotate: open ? 180 : 0 }}
+            transition={{ duration: 0.3, ease: EASE }}
+          >
             <Icon name="chevron" />
-          </span>
+          </m.span>
         </button>
       </h3>
-      <div
-        id={panelId}
-        ref={panelRef}
-        className="faq-answer-collapse"
-        role="region"
-        aria-labelledby={btnId}
-        style={{ maxHeight }}
-      >
-        <div className="faq-answer-inner">{answer}</div>
-      </div>
-    </div>
+      <AnimatePresence initial={false}>
+        {open ? (
+          <m.div
+            key="panel"
+            id={panelId}
+            className="faq-answer-collapse"
+            role="region"
+            aria-labelledby={btnId}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ height: { duration: 0.35, ease: EASE }, opacity: { duration: 0.25 } }}
+          >
+            <div className="faq-answer-inner">{answer}</div>
+          </m.div>
+        ) : null}
+      </AnimatePresence>
+    </RevealItem>
   );
 }
 
@@ -75,7 +80,7 @@ export default function Faq() {
           title="Questions we hear most"
           subtitle="Straight answers before you commit to anything."
         />
-        <div className="faq-accordion">
+        <RevealGroup className="faq-accordion" stagger={0.06}>
           {faqs.map((faq, i) => (
             <FaqItem
               key={faq.question}
@@ -86,14 +91,14 @@ export default function Faq() {
               onToggle={() => setOpenIndex(openIndex === i ? null : i)}
             />
           ))}
-        </div>
-        <div className="faq-contact-prompt">
+        </RevealGroup>
+        <Reveal className="faq-contact-prompt" y={16}>
           <p>Still have a question? We reply fastest on WhatsApp.</p>
           <a href={waLink()} className="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
             <Icon name="whatsapp" />
             Ask on WhatsApp
           </a>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

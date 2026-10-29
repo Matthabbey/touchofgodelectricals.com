@@ -1,7 +1,7 @@
 import { jobIncludes, whyUs } from "@/lib/content";
 import { waLink } from "@/lib/site-config";
 import { Icon } from "./Icons";
-import FadeIn from "./FadeIn";
+import { Reveal, RevealGroup, RevealItem } from "./motion/Reveal";
 import SectionHeader from "./SectionHeader";
 
 export default function WhyUs() {
@@ -16,9 +16,9 @@ export default function WhyUs() {
           red
         />
         <div className="why-us-grid">
-          <FadeIn as="ol" className="why-us-points">
+          <RevealGroup as="ol" className="why-us-points">
             {whyUs.map((point, i) => (
-              <li key={point.title} className="why-point-item">
+              <RevealItem as="li" key={point.title} className="why-point-item" y={18}>
                 <span className="why-point-num" aria-hidden="true">
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -26,11 +26,11 @@ export default function WhyUs() {
                   <h3>{point.title}</h3>
                   <p>{point.text}</p>
                 </div>
-              </li>
+              </RevealItem>
             ))}
-          </FadeIn>
+          </RevealGroup>
 
-          <FadeIn className="includes-card" delay={200}>
+          <Reveal className="includes-card" delay={0.15} x={16} y={0}>
             <div className="includes-header">
               <h3>What every job includes</h3>
               <p>No hidden extras, no guesswork</p>
@@ -51,7 +51,7 @@ export default function WhyUs() {
                 Ask us anything on WhatsApp
               </a>
             </div>
-          </FadeIn>
+          </Reveal>
         </div>
       </div>
     </section>

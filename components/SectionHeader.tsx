@@ -1,4 +1,5 @@
 import { Icon } from "./Icons";
+import { RevealGroup, RevealItem } from "./motion/Reveal";
 
 interface SectionHeaderProps {
   id: string;
@@ -11,21 +12,29 @@ interface SectionHeaderProps {
 
 export default function SectionHeader({ id, badge, title, tagline, subtitle, red = false }: SectionHeaderProps) {
   return (
-    <div className="section-header">
-      <span className={`section-badge${red ? " red-badge" : ""}`}>
+    <RevealGroup className="section-header" stagger={0.06}>
+      <RevealItem as="span" className={`section-badge${red ? " red-badge" : ""}`} y={12}>
         <Icon name="bolt" />
         {badge}
-      </span>
-      {tagline ? <p className="section-tagline-script">{tagline}</p> : null}
-      <h2 id={id} className="section-title">
+      </RevealItem>
+      {tagline ? (
+        <RevealItem as="p" className="section-tagline-script" y={12}>
+          {tagline}
+        </RevealItem>
+      ) : null}
+      <RevealItem as="h2" id={id} className="section-title" y={12}>
         {title}
-      </h2>
-      <div className="lightning-divider" aria-hidden="true">
+      </RevealItem>
+      <RevealItem className="lightning-divider" y={8} ariaHidden>
         <span className="divider-line" />
         <Icon name="bolt" className="divider-bolt" />
         <span className="divider-line right" />
-      </div>
-      {subtitle ? <p className="section-subtitle">{subtitle}</p> : null}
-    </div>
+      </RevealItem>
+      {subtitle ? (
+        <RevealItem as="p" className="section-subtitle" y={12}>
+          {subtitle}
+        </RevealItem>
+      ) : null}
+    </RevealGroup>
   );
 }

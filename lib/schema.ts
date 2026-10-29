@@ -1,13 +1,16 @@
-import { siteConfig } from "./site-config";
+import { isPlaceholder, siteConfig } from "./site-config";
 import { services } from "./content";
 
 /**
  * LocalBusiness (Electrician) structured data.
- * Deliberately omits ratings, founding date, opening hours and social links
- * until the business supplies real values.
+ * Deliberately omits ratings, founding date and opening hours until the
+ * business supplies real values. Only real social links are included.
  */
 export function buildLocalBusinessJsonLd() {
+  const sameAs = Object.values(siteConfig.socials).filter((url) => !isPlaceholder(url));
+
   return {
+    ...(sameAs.length > 0 ? { sameAs } : {}),
     "@context": "https://schema.org",
     "@type": "Electrician",
     "@id": `${siteConfig.siteUrl}/#business`,

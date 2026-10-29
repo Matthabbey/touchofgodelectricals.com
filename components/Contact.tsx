@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { AnimatePresence, m } from "motion/react";
 import { serviceOptions } from "@/lib/content";
 import { isPlaceholder, mailLink, siteConfig, telLink, waLink } from "@/lib/site-config";
 import { Icon } from "./Icons";
+import { EASE, Reveal } from "./motion/Reveal";
 import SectionHeader from "./SectionHeader";
 import { PRESELECT_EVENT } from "./ServiceQuoteButton";
 
@@ -134,7 +136,7 @@ export default function Contact() {
         />
 
         <div className="contact-grid">
-          <div className="quote-form-card">
+          <Reveal className="quote-form-card" x={-20} y={0}>
             <span className="form-header-badge">
               <Icon name="bolt" />
               Free quote
@@ -238,9 +240,9 @@ export default function Contact() {
                 Your details are only used to prepare your quote. For the fastest reply, use the WhatsApp button.
               </p>
             </form>
-          </div>
+          </Reveal>
 
-          <div className="contact-info-panel">
+          <Reveal className="contact-info-panel" x={20} y={0} delay={0.1}>
             <div className="contact-card-box">
               <h3>Contact details</h3>
               <ul className="contact-channels-list" style={{ listStyle: "none" }}>
@@ -253,6 +255,9 @@ export default function Contact() {
                       Call us <Placeholder value={siteConfig.phoneDisplay} />
                     </h4>
                     <a href={telLink()}>{siteConfig.phoneDisplay}</a>
+                    <a href={telLink(siteConfig.phone2Raw)} className="channel-alt-link">
+                      {siteConfig.phone2Display}
+                    </a>
                   </div>
                 </li>
                 <li className="contact-channel-item">
@@ -329,12 +334,14 @@ export default function Contact() {
                 </a>
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
 
+      <AnimatePresence>
       {submitted ? (
-        <div
+        <m.div
+          key="success-modal"
           className="form-success-modal"
           role="dialog"
           aria-modal="true"
@@ -342,8 +349,18 @@ export default function Contact() {
           onClick={(e) => {
             if (e.target === e.currentTarget) setSubmitted(null);
           }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
         >
-          <div className="success-modal-card">
+          <m.div
+            className="success-modal-card"
+            initial={{ opacity: 0, scale: 0.94, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: 8 }}
+            transition={{ duration: 0.28, ease: EASE }}
+          >
             <span className="success-icon-wrap" aria-hidden="true">
               <Icon name="check" />
             </span>
@@ -387,9 +404,10 @@ export default function Contact() {
                 Close
               </button>
             </div>
-          </div>
-        </div>
+          </m.div>
+        </m.div>
       ) : null}
+      </AnimatePresence>
     </section>
   );
 }

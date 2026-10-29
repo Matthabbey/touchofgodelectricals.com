@@ -289,6 +289,12 @@ export function Icon({ name, ...rest }: IconProps) {
           <path d="M6.5 8.5h-3V21h3V8.5zM5 3.5a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5zM21 13.6c0-3.3-1.8-5.3-4.6-5.3-1.6 0-2.7.8-3.2 1.7V8.5h-3V21h3v-6.6c0-1.6.6-2.6 2-2.6 1.3 0 1.8 1 1.8 2.6V21h3v-7.4z" />
         </svg>
       );
+    case "x":
+      return (
+        <svg {...common} fill="currentColor" stroke="none">
+          <path d="M17.75 3h3.07l-6.71 7.67L22 21h-6.18l-4.84-6.33L5.44 21H2.37l7.18-8.2L2 3h6.34l4.37 5.78L17.75 3zm-1.08 16.17h1.7L7.4 4.74H5.57l11.1 14.43z" />
+        </svg>
+      );
     default:
       return null;
   }

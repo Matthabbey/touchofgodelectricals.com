@@ -2,15 +2,30 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { AnimatePresence, m } from "motion/react";
 import logoMark from "@/public/images/logo-mark.png";
-import { navLinks } from "@/lib/content";
+import { navLinks, type NavLink } from "@/lib/content";
 import { siteConfig, telLink, waLink } from "@/lib/site-config";
 import { Icon } from "./Icons";
+
+/** Section id for home-page anchor links ("/#services" -> "services"), null for page links. */
+const hashOf = (href: string): string | null => (href.startsWith("/#") ? href.slice(2) : null);
+
+const trimSlash = (path: string) => path.replace(/\/+$/, "") || "/";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeId, setActiveId] = useState<string>("");
+  const pathname = usePathname();
+
+  const isActive = (link: NavLink): boolean => {
+    const hash = hashOf(link.href);
+    if (hash) return activeId === hash;
+    return trimSlash(pathname ?? "") === trimSlash(link.href);
+  };
 
   // Shadow on scroll
   useEffect(() => {
@@ -23,7 +38,9 @@ export default function Header() {
   // ScrollSpy: highlight the nav link of the section in view
   useEffect(() => {
     const sections = navLinks
-      .map((l) => document.getElementById(l.href.slice(1)))
+      .map((l) => hashOf(l.href))
+      .filter((id): id is string => id !== null)
+      .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
     if (sections.length === 0 || !("IntersectionObserver" in window)) return;
 
@@ -40,7 +57,8 @@ export default function Header() {
     );
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
-  }, []);
+    // Re-run on route change: the header persists across pages, and the sections only exist on "/".
+  }, [pathname]);
 
   const closeDrawer = useCallback(() => setOpen(false), []);
 
@@ -62,7 +80,7 @@ export default function Header() {
     <>
       <header className={`site-header${scrolled ? " scrolled" : ""}`}>
         <div className="container header-container">
-          <a href="#home" className="brand-logo-link" aria-label={`${siteConfig.brandName} home`}>
+          <Link href="/#home" className="brand-logo-link" aria-label={`${siteConfig.brandName} home`}>
             <Image
               src={logoMark}
               alt=""
@@ -77,25 +95,25 @@ export default function Header() {
               </span>
               <span className="brand-wordmark-sub">Electrical Installation</span>
             </span>
-          </a>
+          </Link>
 
           <nav className="desktop-nav" aria-label="Primary">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
-                className={`nav-link${activeId === link.href.slice(1) ? " active" : ""}`}
-                aria-current={activeId === link.href.slice(1) ? "true" : undefined}
+                className={`nav-link${isActive(link) ? " active" : ""}`}
+                aria-current={isActive(link) ? (hashOf(link.href) ? "true" : "page") : undefined}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
           <div className="header-actions">
-            <a href="#contact" className="btn btn-red btn-header-quote">
+            <Link href="/#contact" className="btn btn-red btn-header-quote">
               Get a Free Quote
-            </a>
+            </Link>
             <button
               type="button"
               className="mobile-menu-toggle"
@@ -112,52 +130,68 @@ export default function Header() {
         </div>
       </header>
 
-      <div
-        className={`mobile-drawer-overlay${open ? " active" : ""}`}
-        onClick={closeDrawer}
-        aria-hidden="true"
-      />
-      <aside
-        id="mobile-drawer"
-        className={`mobile-nav-drawer${open ? " active" : ""}`}
-        aria-label="Mobile menu"
-        aria-hidden={!open}
-      >
-        <div className="mobile-drawer-header">
-          <span className="brand-wordmark">
-            <span className="brand-wordmark-main">
-              Touch of <span>God</span>
-            </span>
-            <span className="brand-wordmark-sub">Electrical Installation</span>
-          </span>
-          <button type="button" className="mobile-drawer-close" onClick={closeDrawer} aria-label="Close menu" tabIndex={open ? 0 : -1}>
-            <Icon name="close" />
-          </button>
-        </div>
-        <ul className="mobile-drawer-links">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <a href={link.href} className="mobile-nav-link" onClick={closeDrawer} tabIndex={open ? 0 : -1}>
-                {link.label}
-                <Icon name="arrow" width={16} height={16} />
+      {/* Drawer and overlay are mounted only while open; AnimatePresence plays the exit. */}
+      <AnimatePresence>
+        {open ? (
+          <m.div
+            key="drawer-overlay"
+            className="mobile-drawer-overlay"
+            onClick={closeDrawer}
+            aria-hidden="true"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          />
+        ) : null}
+        {open ? (
+          <m.aside
+            key="drawer"
+            id="mobile-drawer"
+            className="mobile-nav-drawer"
+            aria-label="Mobile menu"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", stiffness: 320, damping: 34 }}
+          >
+            <div className="mobile-drawer-header">
+              <span className="brand-wordmark">
+                <span className="brand-wordmark-main">
+                  Touch of <span>God</span>
+                </span>
+                <span className="brand-wordmark-sub">Electrical Installation</span>
+              </span>
+              <button type="button" className="mobile-drawer-close" onClick={closeDrawer} aria-label="Close menu">
+                <Icon name="close" />
+              </button>
+            </div>
+            <ul className="mobile-drawer-links">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="mobile-nav-link" onClick={closeDrawer}>
+                    {link.label}
+                    <Icon name="arrow" width={16} height={16} />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className="mobile-drawer-ctas">
+              <Link href="/#contact" className="btn btn-red" onClick={closeDrawer}>
+                Get a Free Quote
+              </Link>
+              <a href={waLink()} className="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
+                <Icon name="whatsapp" />
+                Chat on WhatsApp
               </a>
-            </li>
-          ))}
-        </ul>
-        <div className="mobile-drawer-ctas">
-          <a href="#contact" className="btn btn-red" onClick={closeDrawer} tabIndex={open ? 0 : -1}>
-            Get a Free Quote
-          </a>
-          <a href={waLink()} className="btn btn-whatsapp" target="_blank" rel="noopener noreferrer" tabIndex={open ? 0 : -1}>
-            <Icon name="whatsapp" />
-            Chat on WhatsApp
-          </a>
-          <a href={telLink()} className="btn btn-outline-blue" tabIndex={open ? 0 : -1}>
-            <Icon name="phone" />
-            Call {siteConfig.phoneDisplay}
-          </a>
-        </div>
-      </aside>
+              <a href={telLink()} className="btn btn-outline-blue">
+                <Icon name="phone" />
+                Call {siteConfig.phoneDisplay}
+              </a>
+            </div>
+          </m.aside>
+        ) : null}
+      </AnimatePresence>
     </>
   );
 }

@@ -21,6 +21,8 @@ npm run build
 | --- | --- |
 | Phone, WhatsApp number, email, address, hours, Google Maps link, social links, site URL | `lib/site-config.ts` |
 | Service descriptions, "why us" points, steps, project cards, testimonials, FAQ, nav links, SEO keywords | `lib/content.ts` |
+| About page text, values, photo captions and video titles (`aboutContent`) | `lib/content.ts` |
+| About page photos and videos | `public/images/about/`, `public/videos/about/` |
 | Colours, fonts, spacing (all design CSS) | `app/globals.css` |
 | Page title, meta description, Open Graph | `app/layout.tsx` |
 | Structured data (LocalBusiness / Electrician schema) | `lib/schema.ts` |

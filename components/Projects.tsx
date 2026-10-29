@@ -2,12 +2,19 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import { AnimatePresence, m } from "motion/react";
 import { projectFilters, projects, type ProjectCategory } from "@/lib/content";
 import { waLink } from "@/lib/site-config";
 import { Icon } from "./Icons";
+import { EASE, RevealGroup } from "./motion/Reveal";
 import SectionHeader from "./SectionHeader";
 
 type Filter = ProjectCategory | "all";
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE } },
+};
 
 export default function Projects() {
   const [filter, setFilter] = useState<Filter>("all");
@@ -74,136 +81,161 @@ export default function Projects() {
 
         <div className="gallery-filter-tabs" role="group" aria-label="Filter projects by category">
           {projectFilters.map((f) => (
-            <button
+            <m.button
               key={f.value}
               type="button"
               className={`filter-btn${filter === f.value ? " active" : ""}`}
               aria-pressed={filter === f.value}
               onClick={() => setFilter(f.value)}
+              whileTap={{ scale: 0.97 }}
             >
               {f.label}
-            </button>
+            </m.button>
           ))}
         </div>
 
-        <div className="gallery-grid">
-          {visible.map((project, i) => (
-            <article
-              key={project.id}
-              className="project-card"
-              onClick={(e) => open(i, e.currentTarget.querySelector("button"))}
+        <RevealGroup className="gallery-grid">
+          <AnimatePresence mode="popLayout">
+            {visible.map((project, i) => (
+              // Wrapper carries the motion so the card's own CSS hover lift keeps working.
+              <m.div
+                key={project.id}
+                data-reveal
+                className="reveal-cell"
+                variants={cardVariants}
+                exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.18 } }}
+              >
+                <article className="project-card" onClick={(e) => open(i, e.currentTarget.querySelector("button"))}>
+                  <div className="project-img-wrapper">
+                    <Image
+                      src={project.image}
+                      alt={project.alt}
+                      className="project-img"
+                      width={800}
+                      height={500}
+                      loading="lazy"
+                      unoptimized
+                    />
+                    <span className="project-category-pill">{project.categoryLabel}</span>
+                    {project.sample ? <span className="project-sample-pill">Sample</span> : null}
+                    <span className="project-overlay-zoom" aria-hidden="true">
+                      <Icon name="zoom" />
+                    </span>
+                  </div>
+                  <div className="project-body">
+                    <h3 className="project-title">{project.title}</h3>
+                    <p className="project-location">
+                      <Icon name="pin" />
+                      {project.location}
+                    </p>
+                    <p className="project-desc-text">{project.summary}</p>
+                    <div className="project-card-footer">
+                      <button
+                        type="button"
+                        className="project-view-link"
+                        style={{ background: "none", border: 0, cursor: "pointer", padding: 0 }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          open(i, e.currentTarget);
+                        }}
+                        aria-label={`View project: ${project.title}`}
+                      >
+                        View project
+                        <Icon name="arrow" />
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              </m.div>
+            ))}
+          </AnimatePresence>
+        </RevealGroup>
+      </div>
+
+      <AnimatePresence>
+        {active ? (
+          <m.div
+            key="lightbox"
+            className="lightbox-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="lightbox-title"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) close();
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <m.div
+              className="lightbox-content-box"
+              initial={{ opacity: 0, scale: 0.94, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 8 }}
+              transition={{ duration: 0.28, ease: EASE }}
             >
-              <div className="project-img-wrapper">
-                <Image
-                  src={project.image}
-                  alt={project.alt}
-                  className="project-img"
-                  width={800}
-                  height={500}
-                  loading="lazy"
-                  unoptimized
-                />
-                <span className="project-category-pill">{project.categoryLabel}</span>
-                {project.sample ? <span className="project-sample-pill">Sample</span> : null}
-                <span className="project-overlay-zoom" aria-hidden="true">
-                  <Icon name="zoom" />
-                </span>
-              </div>
-              <div className="project-body">
-                <h3 className="project-title">{project.title}</h3>
-                <p className="project-location">
-                  <Icon name="pin" />
-                  {project.location}
-                </p>
-                <p className="project-desc-text">{project.summary}</p>
-                <div className="project-card-footer">
-                  <button
-                    type="button"
-                    className="project-view-link"
-                    style={{ background: "none", border: 0, cursor: "pointer", padding: 0 }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      open(i, e.currentTarget);
-                    }}
-                    aria-label={`View project: ${project.title}`}
+              <button ref={closeBtnRef} type="button" className="lightbox-close-btn" onClick={close} aria-label="Close">
+                <Icon name="close" />
+              </button>
+              <div className="lightbox-img-wrap">
+                <AnimatePresence mode="wait" initial={false}>
+                  <m.div
+                    key={active.image}
+                    className="lightbox-img-fade"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.18 }}
                   >
-                    View project
-                    <Icon name="arrow" />
+                    <Image src={active.image} alt={active.alt} className="lightbox-img" width={800} height={500} unoptimized />
+                  </m.div>
+                </AnimatePresence>
+                {visible.length > 1 ? (
+                  <>
+                    <button type="button" className="lightbox-nav-btn lightbox-prev-btn" onClick={showPrev} aria-label="Previous project">
+                      <Icon name="chevron" />
+                    </button>
+                    <button type="button" className="lightbox-nav-btn lightbox-next-btn" onClick={showNext} aria-label="Next project">
+                      <Icon name="chevron" />
+                    </button>
+                  </>
+                ) : null}
+              </div>
+              <div className="lightbox-details">
+                <p className="lightbox-category">
+                  {active.categoryLabel}
+                  {active.sample ? " · Sample" : ""}
+                </p>
+                <h3 id="lightbox-title" className="lightbox-title">
+                  {active.title}
+                </h3>
+                <p className="lightbox-location">
+                  <Icon name="pin" />
+                  {active.location}
+                </p>
+                <p className="lightbox-desc">{active.details}</p>
+                <div className="lightbox-actions">
+                  <a
+                    href={waLink(
+                      `Hello Touch of God Electrical,\n\nI saw the project "${active.title}" on your website and would like a quote for a similar installation at my location.`,
+                    )}
+                    className="btn btn-whatsapp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Icon name="whatsapp" />
+                    Request a similar quote
+                  </a>
+                  <button type="button" className="btn btn-outline-white" onClick={close}>
+                    Back to gallery
                   </button>
                 </div>
               </div>
-            </article>
-          ))}
-        </div>
-      </div>
-
-      {active ? (
-        <div
-          className="lightbox-modal"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="lightbox-title"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) close();
-          }}
-        >
-          <div className="lightbox-content-box">
-            <button ref={closeBtnRef} type="button" className="lightbox-close-btn" onClick={close} aria-label="Close">
-              <Icon name="close" />
-            </button>
-            <div className="lightbox-img-wrap">
-              <Image
-                src={active.image}
-                alt={active.alt}
-                className="lightbox-img"
-                width={800}
-                height={500}
-                unoptimized
-              />
-              {visible.length > 1 ? (
-                <>
-                  <button type="button" className="lightbox-nav-btn lightbox-prev-btn" onClick={showPrev} aria-label="Previous project">
-                    <Icon name="chevron" />
-                  </button>
-                  <button type="button" className="lightbox-nav-btn lightbox-next-btn" onClick={showNext} aria-label="Next project">
-                    <Icon name="chevron" />
-                  </button>
-                </>
-              ) : null}
-            </div>
-            <div className="lightbox-details">
-              <p className="lightbox-category">
-                {active.categoryLabel}
-                {active.sample ? " · Sample" : ""}
-              </p>
-              <h3 id="lightbox-title" className="lightbox-title">
-                {active.title}
-              </h3>
-              <p className="lightbox-location">
-                <Icon name="pin" />
-                {active.location}
-              </p>
-              <p className="lightbox-desc">{active.details}</p>
-              <div className="lightbox-actions">
-                <a
-                  href={waLink(
-                    `Hello Touch of God Electrical,\n\nI saw the project "${active.title}" on your website and would like a quote for a similar installation at my location.`,
-                  )}
-                  className="btn btn-whatsapp"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Icon name="whatsapp" />
-                  Request a similar quote
-                </a>
-                <button type="button" className="btn btn-outline-white" onClick={close}>
-                  Back to gallery
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : null}
+            </m.div>
+          </m.div>
+        ) : null}
+      </AnimatePresence>
     </section>
   );
 }

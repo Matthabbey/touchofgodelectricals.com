@@ -37,6 +37,7 @@ export type IconName =
   | "instagram"
   | "tiktok"
   | "linkedin"
+  | "x"
   | "quote"
   | "menu";
 
@@ -414,12 +415,147 @@ export const faqs: Faq[] = [
   },
 ];
 
-export const navLinks = [
-  { href: "#services", label: "Services" },
-  { href: "#why-us", label: "Why Us" },
-  { href: "#projects", label: "Projects" },
-  { href: "#contact", label: "Contact" },
+export interface NavLink {
+  /** Root-relative so links work from every page: "/#section" or "/page/". */
+  href: string;
+  label: string;
+}
+
+export const navLinks: NavLink[] = [
+  { href: "/#services", label: "Services" },
+  { href: "/#why-us", label: "Why Us" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/about/", label: "About" },
+  { href: "/#contact", label: "Contact" },
 ];
+
+/* ---------- ABOUT PAGE ---------- */
+
+export interface AboutValue {
+  title: string;
+  text: string;
+  icon: IconName;
+}
+
+export interface AboutPhoto {
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+}
+
+export interface AboutVideo {
+  src: string;
+  title: string;
+  /** Shown next to the title, e.g. "0:42". */
+  duration: string;
+}
+
+/**
+ * About page copy. Describes what the team does and how it works.
+ * Deliberately avoids founding dates, team size, certifications and client names
+ * until the owner supplies them.
+ */
+export const aboutContent = {
+  badge: "About us",
+  tagline: "The team behind the work",
+  title: "Electrical, solar and CCTV installers serving Lagos",
+  heroEyebrow: "Electrical contractor in Lagos",
+  heroTagline: "Who we are",
+  heroTitle: "Touch of God Electrical Installation",
+  heroText:
+    "An electrical installation team based in Okun-Ajah, Lagos, working on homes, offices and industrial sites. Here is what we do, how we work and some of our recent jobs.",
+  intro: [
+    "Touch of God Electrical Installation carries out electrical installation, solar and inverter systems, wireless CCTV, interior lighting, earthing and lightning protection, automation and ongoing maintenance. Whether it is a single inverter for a family home or conduit work across a production floor, the same team handles the job from first visit to handover.",
+    "Every job starts with a site inspection. We measure the real load and layout, then send an itemised written quote covering materials, labour and a realistic timeline. Our own team does the installation, tests everything before handover and walks you through the finished system.",
+    "We are based in Okun-Ajah and serve the wider Lagos area. If you are further out, send your location on WhatsApp and we will confirm whether we can take the job.",
+  ],
+  values: [
+    {
+      title: "Safety first",
+      text: "Correct cable sizing, protection devices and earthing on every installation, so the system is safe to live and work with.",
+      icon: "shield",
+    },
+    {
+      title: "Honest quotes",
+      text: "You see what is going into your building, and what it costs, in writing before any work begins.",
+      icon: "document",
+    },
+    {
+      title: "Tidy workmanship",
+      text: "Straight runs, labelled boards and neat cable management. The finish should look as good as it performs.",
+      icon: "tools",
+    },
+    {
+      title: "Support after handover",
+      text: "We stay reachable for questions, adjustments and maintenance once the job is done.",
+      icon: "lifebuoy",
+    },
+  ] satisfies AboutValue[],
+  galleryTitle: "Our team on site",
+  galleryTagline: "Real jobs, real people",
+  gallerySubtitle: "Photos from recent solar and inverter installations. Tap any photo to see it larger.",
+  gallery: [
+    {
+      src: "/images/about/rooftop-solar-array.jpg",
+      alt: "Technician crouched on a corrugated roof connecting cables between two rows of solar panels",
+      caption: "Wiring a rooftop solar array",
+      width: 960,
+      height: 1280,
+    },
+    {
+      src: "/images/about/solar-panel-blue-roof.jpg",
+      alt: "Technician positioning a solar panel on a blue corrugated roof with mounting rails already fixed",
+      caption: "Mounting panels on a residential roof",
+      width: 720,
+      height: 1280,
+    },
+    {
+      src: "/images/about/inverter-battery-install.jpg",
+      alt: "Three team members wiring a wall-mounted inverter beneath a distribution board, with a battery storage unit below",
+      caption: "Inverter and battery installation",
+      width: 720,
+      height: 1280,
+    },
+    {
+      src: "/images/about/wall-inverter-wiring.jpg",
+      alt: "Technician in a Touch of God shirt connecting cables at the terminals of a wall-mounted inverter",
+      caption: "Terminating cables at a wall inverter",
+      width: 720,
+      height: 1280,
+    },
+    {
+      src: "/images/about/inverter-battery-cabinet.jpg",
+      alt: "Two technicians working behind a floor-standing battery cabinet below a wall-mounted inverter",
+      caption: "Fitting a floor-standing battery cabinet",
+      width: 720,
+      height: 1280,
+    },
+    {
+      src: "/images/about/team-battery-storage.jpg",
+      alt: "Team members in branded shirts positioning two battery cabinets under a wall-mounted inverter",
+      caption: "Positioning battery storage",
+      width: 720,
+      height: 1280,
+    },
+  ] satisfies AboutPhoto[],
+  videosTitle: "Watch the work in progress",
+  videosTagline: "Straight from the job site",
+  videosSubtitle: "Short clips recorded by the team during installations.",
+  videos: [
+    // Titles are generic on purpose. Rename them once you know what each clip shows.
+    { src: "/videos/about/install-clip-01.mp4", title: "On site, clip 1", duration: "0:16" },
+    { src: "/videos/about/install-clip-02.mp4", title: "On site, clip 2", duration: "0:17" },
+    { src: "/videos/about/install-clip-03.mp4", title: "On site, clip 3", duration: "0:19" },
+    { src: "/videos/about/install-clip-04.mp4", title: "On site, clip 4", duration: "0:42" },
+    { src: "/videos/about/install-clip-05.mp4", title: "On site, clip 5 (longer walkthrough)", duration: "1:56" },
+  ] satisfies AboutVideo[],
+  cta: {
+    title: "Ready to talk about your project?",
+    text: "Tell us what you need and we will arrange a site visit and send an itemised quote.",
+  },
+};
 
 export const seoKeywords: string[] = [
   "electrical installation Lagos",

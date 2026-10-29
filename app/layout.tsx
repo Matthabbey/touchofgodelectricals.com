@@ -4,6 +4,7 @@ import { Inter, Kaushan_Script, Poppins } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import MotionProvider from "@/components/motion/MotionProvider";
 import { seoKeywords } from "@/lib/content";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
@@ -69,13 +70,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         {/* Marks JS as available before first paint so fade-in content is never hidden without it. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
-        <a href="#main" className="skip-link">
-          Skip to main content
-        </a>
-        <Header />
-        {children}
-        <Footer />
-        <FloatingWhatsApp />
+        <MotionProvider>
+          <a href="#main" className="skip-link">
+            Skip to main content
+          </a>
+          <Header />
+          {children}
+          <Footer />
+          <FloatingWhatsApp />
+        </MotionProvider>
       </body>
     </html>
   );

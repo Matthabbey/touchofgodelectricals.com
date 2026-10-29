@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import logoFull from "@/public/images/logo-full.jpg";
 import { navLinks, services } from "@/lib/content";
 import { isPlaceholder, mailLink, siteConfig, telLink, waLink } from "@/lib/site-config";
@@ -7,6 +8,7 @@ import { Icon } from "./Icons";
 const socialEntries = [
   { key: "facebook", label: "Facebook", icon: "facebook" as const },
   { key: "instagram", label: "Instagram", icon: "instagram" as const },
+  { key: "x", label: "X (Twitter)", icon: "x" as const },
   { key: "tiktok", label: "TikTok", icon: "tiktok" as const },
   { key: "linkedin", label: "LinkedIn", icon: "linkedin" as const },
 ];
@@ -51,15 +53,15 @@ export default function Footer() {
             <h3>Quick links</h3>
             <ul className="footer-links-list">
               <li>
-                <a href="#home">Home</a>
+                <Link href="/">Home</Link>
               </li>
               {navLinks.map((l) => (
                 <li key={l.href}>
-                  <a href={l.href}>{l.label}</a>
+                  <Link href={l.href}>{l.label}</Link>
                 </li>
               ))}
               <li>
-                <a href="#faq">FAQ</a>
+                <Link href="/#faq">FAQ</Link>
               </li>
             </ul>
           </nav>
@@ -69,7 +71,7 @@ export default function Footer() {
             <ul className="footer-links-list">
               {services.map((s) => (
                 <li key={s.slug}>
-                  <a href="#services">{s.title}</a>
+                  <Link href="/#services">{s.title}</Link>
                 </li>
               ))}
             </ul>
@@ -81,6 +83,10 @@ export default function Footer() {
               <div className="footer-contact-row">
                 <Icon name="phone" />
                 <a href={telLink()}>{siteConfig.phoneDisplay}</a>
+              </div>
+              <div className="footer-contact-row">
+                <Icon name="phone" />
+                <a href={telLink(siteConfig.phone2Raw)}>{siteConfig.phone2Display}</a>
               </div>
               <div className="footer-contact-row">
                 <Icon name="whatsapp" />
@@ -105,8 +111,8 @@ export default function Footer() {
             © {year} {siteConfig.brandName}. All rights reserved.
           </p>
           <p className="footer-disclaimer-note">
-            Phone numbers, email, address, hours, project photos and reviews on this site are placeholders until the
-            business supplies real details.
+            Opening hours, the project gallery illustrations and the sample reviews on this site are placeholders until
+            the business supplies real details.
           </p>
         </div>
       </div>
