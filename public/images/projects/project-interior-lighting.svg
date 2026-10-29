@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgRoom" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="60%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <radialGradient id="lightConeWarm" cx="50%" cy="0%" r="90%">
+      <stop offset="0%" stop-color="#FEF08A" stop-opacity="0.85" />
+      <stop offset="40%" stop-color="#FDE047" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#FEF08A" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="coveGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#bgRoom)" />
+
+  <!-- Modern False Ceiling (POP) with Cove Lighting -->
+  <polygon points="60,60 740,60 680,110 120,110" fill="#1E293B" stroke="#334155" stroke-width="2" />
+  <!-- Cove Light Neon Strip (Sky Blue & Warm White blend) -->
+  <line x1="120" y1="110" x2="680" y2="110" stroke="#FDE047" stroke-width="4" filter="drop-shadow(0 0 8px #FDE047)" />
+  <line x1="60" y1="60" x2="740" y2="60" stroke="#38BDF8" stroke-width="3" filter="drop-shadow(0 0 10px #38BDF8)" />
+
+  <!-- 3 Elegant Pendant Lights with Warm Cones -->
+  <!-- Left Pendant -->
+  <line x1="220" y1="60" x2="220" y2="180" stroke="#94A3B8" stroke-width="2" />
+  <ellipse cx="220" cy="180" rx="20" ry="10" fill="#E31E24" />
+  <polygon points="220,180 120,440 320,440" fill="url(#lightConeWarm)" />
+  <circle cx="220" cy="183" r="6" fill="#FFF" />
+
+  <!-- Center Luxury Chandelier / Pendant -->
+  <line x1="400" y1="60" x2="400" y2="160" stroke="#94A3B8" stroke-width="2" />
+  <circle cx="400" cy="170" r="28" fill="none" stroke="#F59E0B" stroke-width="3" />
+  <circle cx="400" cy="170" r="16" fill="none" stroke="#E31E24" stroke-width="2" />
+  <polygon points="400,170 250,470 550,470" fill="url(#lightConeWarm)" opacity="0.95" />
+  <circle cx="400" cy="170" r="8" fill="#FFF" />
+
+  <!-- Right Pendant -->
+  <line x1="580" y1="60" x2="580" y2="180" stroke="#94A3B8" stroke-width="2" />
+  <ellipse cx="580" cy="180" rx="20" ry="10" fill="#1F5FA8" />
+  <polygon points="580,180 480,440 680,440" fill="url(#lightConeWarm)" />
+  <circle cx="580" cy="183" r="6" fill="#FFF" />
+
+  <!-- Recessed Ceiling Spotlights (Downlights) -->
+  <circle cx="160" cy="85" r="7" fill="#FEF08A" />
+  <circle cx="300" cy="85" r="7" fill="#FEF08A" />
+  <circle cx="500" cy="85" r="7" fill="#FEF08A" />
+  <circle cx="640" cy="85" r="7" fill="#FEF08A" />
+
+  <!-- Modern Table Profile in silhouette -->
+  <polygon points="180,420 620,420 660,490 140,490" fill="#0B132B" opacity="0.8" />
+  <rect x="360" y="380" width="80" height="40" rx="4" fill="#1E293B" stroke="#475569" />
+
+  <!-- Tag / Watermark -->
+  <rect x="30" y="30" width="230" height="36" rx="6" fill="#E31E24" opacity="0.9" />
+  <text x="145" y="53" fill="#FFFFFF" font-family="'Montserrat', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">SAMPLE PROJECT PHOTO</text>
+
+  <text x="760" y="470" fill="#F8FAFC" font-family="'Poppins', sans-serif" font-size="14" font-weight="600" text-anchor="end">Interior Architectural Lighting</text>
+</svg>

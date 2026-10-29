@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgAuto" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="50%" stop-color="#0B132B" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#bgAuto)" />
+
+  <!-- Smart Smartphone Control Interface Frame -->
+  <g transform="translate(140, 70)">
+    <!-- Smartphone Case -->
+    <rect width="180" height="340" rx="28" fill="#1E293B" stroke="#475569" stroke-width="4" />
+    <rect x="8" y="8" width="164" height="324" rx="22" fill="#0F172A" />
+    
+    <!-- Phone Top Speaker & Camera -->
+    <rect x="65" y="14" width="50" height="6" rx="3" fill="#334155" />
+    
+    <!-- App UI Mockup -->
+    <text x="90" y="50" fill="#38BDF8" font-family="'Poppins', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">TOUCH OF GOD IOT</text>
+    
+    <!-- Automation Switch Cards -->
+    <rect x="20" y="70" width="140" height="50" rx="8" fill="#1E293B" stroke="#10B981" stroke-width="1.5" />
+    <text x="32" y="92" fill="#F8FAFC" font-family="sans-serif" font-size="11" font-weight="bold">Living Room Lights</text>
+    <text x="32" y="108" fill="#10B981" font-family="monospace" font-size="10">● ON (80% DIM)</text>
+    <circle cx="140" cy="95" r="10" fill="#10B981" />
+
+    <rect x="20" y="130" width="140" height="50" rx="8" fill="#1E293B" stroke="#38BDF8" stroke-width="1" />
+    <text x="32" y="152" fill="#F8FAFC" font-family="sans-serif" font-size="11" font-weight="bold">Inverter &amp; Grid ATS</text>
+    <text x="32" y="168" fill="#38BDF8" font-family="monospace" font-size="10">● AUTO GENERATOR</text>
+    <circle cx="140" cy="155" r="10" fill="#1F5FA8" />
+
+    <rect x="20" y="190" width="140" height="50" rx="8" fill="#1E293B" stroke="#64748B" stroke-width="1" />
+    <text x="32" y="212" fill="#F8FAFC" font-family="sans-serif" font-size="11" font-weight="bold">Security Perimeter</text>
+    <text x="32" y="228" fill="#E31E24" font-family="monospace" font-size="10">● ARMED SENSORS</text>
+    <circle cx="140" cy="215" r="10" fill="#E31E24" />
+
+    <rect x="20" y="250" width="140" height="50" rx="8" fill="#1E293B" />
+    <text x="32" y="272" fill="#F8FAFC" font-family="sans-serif" font-size="11" font-weight="bold">Total Power Draw</text>
+    <text x="32" y="288" fill="#F59E0B" font-family="monospace" font-size="11" font-weight="bold">1.4 kW / 6.2 Amps</text>
+  </g>
+
+  <!-- Smart PLC Automation Panel on Wall -->
+  <g transform="translate(420, 110)">
+    <rect width="280" height="260" rx="8" fill="#1E293B" stroke="#1F5FA8" stroke-width="3" />
+    <text x="140" y="35" fill="#38BDF8" font-family="'Poppins', sans-serif" font-size="13" font-weight="bold" text-anchor="middle">SMART ATS CONTROLLER</text>
+    
+    <!-- Relays & Smart Contactors -->
+    <rect x="30" y="60" width="60" height="70" rx="4" fill="#0F172A" stroke="#475569" />
+    <circle cx="60" cy="95" r="12" fill="#10B981" />
+    <text x="60" y="120" fill="#E2E8F0" font-family="monospace" font-size="9" text-anchor="middle">GRID</text>
+
+    <rect x="110" y="60" width="60" height="70" rx="4" fill="#0F172A" stroke="#475569" />
+    <circle cx="140" cy="95" r="12" fill="#38BDF8" />
+    <text x="140" y="120" fill="#E2E8F0" font-family="monospace" font-size="9" text-anchor="middle">SOLAR</text>
+
+    <rect x="190" y="60" width="60" height="70" rx="4" fill="#0F172A" stroke="#475569" />
+    <circle cx="220" cy="95" r="12" fill="#EAB308" />
+    <text x="220" y="120" fill="#E2E8F0" font-family="monospace" font-size="9" text-anchor="middle">GEN</text>
+
+    <!-- Signal Bus Connection Wire Waves -->
+    <path d="M -100 80 C -50 80, -20 120, 30 120" stroke="#38BDF8" stroke-width="2" stroke-dasharray="4" fill="none" />
+    
+    <!-- Status readout -->
+    <rect x="30" y="160" width="220" height="65" rx="4" fill="#0F172A" stroke="#334155" />
+    <text x="45" y="185" fill="#10B981" font-family="monospace" font-size="11">ATS: PRIORITY SOLAR</text>
+    <text x="45" y="205" fill="#38BDF8" font-family="monospace" font-size="11">AUTO-TRANSFER: ZERO BLINK</text>
+  </g>
+
+  <!-- Tag / Watermark -->
+  <rect x="30" y="30" width="230" height="36" rx="6" fill="#1F5FA8" opacity="0.95" />
+  <text x="145" y="53" fill="#FFFFFF" font-family="'Montserrat', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">SAMPLE PROJECT PHOTO</text>
+
+  <text x="760" y="470" fill="#F8FAFC" font-family="'Poppins', sans-serif" font-size="14" font-weight="600" text-anchor="end">Smart Home &amp; ATS Automation</text>
+</svg>

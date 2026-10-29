@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="65%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+    <linearGradient id="earthSoil" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#451A03" />
+      <stop offset="100%" stop-color="#1C1917" />
+    </linearGradient>
+    <linearGradient id="copperRod" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#EA580C" />
+      <stop offset="50%" stop-color="#FDBA74" />
+      <stop offset="100%" stop-color="#C2410C" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#skyGrad)" />
+
+  <!-- Lightning Arrester Air Terminal at Top of Roof -->
+  <g transform="translate(400, 50)">
+    <!-- Stainless steel / Copper lightning rod -->
+    <polygon points="0,0 -8,70 8,70" fill="url(#copperRod)" />
+    <!-- 4-point spike -->
+    <line x1="0" y1="0" x2="0" y2="-40" stroke="#FDBA74" stroke-width="4" stroke-linecap="round" />
+    <line x1="0" y1="0" x2="-25" y2="-25" stroke="#FDBA74" stroke-width="3" stroke-linecap="round" />
+    <line x1="0" y1="0" x2="25" y2="-25" stroke="#FDBA74" stroke-width="3" stroke-linecap="round" />
+    
+    <!-- Atmospheric Energy Lightning Strike -->
+    <path d="M 180 -30 L 100 20 L 130 20 L 0 0" stroke="#FDE047" stroke-width="3" fill="none" opacity="0.8" />
+  </g>
+
+  <!-- Ground Earth Line / Tape running down building -->
+  <line x1="400" y1="120" x2="400" y2="320" stroke="url(#copperRod)" stroke-width="6" />
+
+  <!-- Soil / Underground Earth Pit Cross-Section -->
+  <rect x="0" y="320" width="800" height="180" fill="url(#earthSoil)" />
+  <line x1="0" y1="320" x2="800" y2="320" stroke="#10B981" stroke-width="4" />
+  <text x="40" y="345" fill="#10B981" font-family="'Poppins', sans-serif" font-size="12" font-weight="bold">GROUND LEVEL (EARTH)</text>
+
+  <!-- Earth Inspection Chamber Pit -->
+  <rect x="330" y="320" width="140" height="150" fill="#292524" stroke="#78716C" stroke-width="4" rx="4" />
+  <text x="400" y="342" fill="#E2E8F0" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">EARTH PIT CHAMBER</text>
+  
+  <!-- Copper Earth Rod driven deep -->
+  <rect x="394" y="320" width="12" height="170" fill="url(#copperRod)" />
+  <!-- Earthing Clamp & Test Link -->
+  <rect x="382" y="360" width="36" height="18" rx="3" fill="#EAB308" stroke="#713F12" />
+  
+  <!-- Earth Symbol -->
+  <g stroke="#10B981" stroke-width="3" transform="translate(400, 410)">
+    <line x1="0" y1="0" x2="0" y2="15" />
+    <line x1="-24" y1="15" x2="24" y2="15" />
+    <line x1="-16" y1="23" x2="16" y2="23" />
+    <line x1="-8" y1="31" x2="8" y2="31" />
+  </g>
+  <text x="400" y="465" fill="#10B981" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">&lt; 2 OHMS CERTIFIED</text>
+
+  <!-- Tag / Watermark -->
+  <rect x="30" y="30" width="230" height="36" rx="6" fill="#E31E24" opacity="0.9" />
+  <text x="145" y="53" fill="#FFFFFF" font-family="'Montserrat', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">SAMPLE PROJECT PHOTO</text>
+
+  <text x="760" y="470" fill="#F8FAFC" font-family="'Poppins', sans-serif" font-size="14" font-weight="600" text-anchor="end">Earthing &amp; Lightning Arrester</text>
+</svg>

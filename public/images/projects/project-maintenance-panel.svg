@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgMaint" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#bgMaint)" />
+
+  <!-- Residential Consumer Unit / Fusebox Panel Upgrade -->
+  <g transform="translate(180, 80)">
+    <!-- Main Enclosure -->
+    <rect width="440" height="320" rx="10" fill="#1E293B" stroke="#64748B" stroke-width="4" />
+    <rect x="15" y="15" width="410" height="290" rx="6" fill="#0F172A" />
+    
+    <!-- DIN Rail 1 -->
+    <rect x="30" y="45" width="380" height="12" rx="2" fill="#475569" />
+    
+    <!-- 100A Main Isolator Switch -->
+    <rect x="40" y="70" width="60" height="85" rx="4" fill="#E31E24" />
+    <text x="70" y="115" fill="#FFF" font-family="'Poppins', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">MAIN</text>
+    <text x="70" y="135" fill="#FFF" font-family="monospace" font-size="10" text-anchor="middle">100A</text>
+    
+    <!-- RCD / Surge Protector Device (SPD) -->
+    <rect x="115" y="70" width="50" height="85" rx="4" fill="#1F5FA8" />
+    <text x="140" y="115" fill="#FFF" font-family="'Poppins', sans-serif" font-size="11" font-weight="bold" text-anchor="middle">SPD</text>
+    <text x="140" y="135" fill="#38BDF8" font-family="monospace" font-size="9" text-anchor="middle">TYPE 2</text>
+    
+    <!-- Miniature Circuit Breakers (MCBs) - Precision Wire Layout -->
+    <g transform="translate(180, 70)">
+      <rect x="0" y="0" width="26" height="85" rx="3" fill="#334155" stroke="#64748B" />
+      <rect x="32" y="0" width="26" height="85" rx="3" fill="#334155" stroke="#64748B" />
+      <rect x="64" y="0" width="26" height="85" rx="3" fill="#334155" stroke="#64748B" />
+      <rect x="96" y="0" width="26" height="85" rx="3" fill="#334155" stroke="#64748B" />
+      <rect x="128" y="0" width="26" height="85" rx="3" fill="#334155" stroke="#64748B" />
+      <rect x="160" y="0" width="26" height="85" rx="3" fill="#334155" stroke="#64748B" />
+      <rect x="192" y="0" width="26" height="85" rx="3" fill="#334155" stroke="#64748B" />
+    </g>
+
+    <!-- Lower Row: Neat Color-coded Copper Neutral & Earth Terminals -->
+    <rect x="30" y="185" width="380" height="12" rx="2" fill="#475569" />
+    
+    <!-- Cable Bundling (Neat Wiring Showcase) -->
+    <!-- Live Wires (Red) -->
+    <path d="M 50 160 C 50 210, 80 230, 80 280" stroke="#E31E24" stroke-width="4" fill="none" stroke-linecap="round" />
+    <path d="M 70 160 C 70 210, 100 230, 100 280" stroke="#E31E24" stroke-width="4" fill="none" stroke-linecap="round" />
+    
+    <!-- Neutral Wires (Blue/Black) -->
+    <path d="M 140 160 C 140 210, 180 230, 180 280" stroke="#1F5FA8" stroke-width="4" fill="none" stroke-linecap="round" />
+    <path d="M 190 160 C 190 210, 220 230, 220 280" stroke="#1F5FA8" stroke-width="4" fill="none" stroke-linecap="round" />
+
+    <!-- Earth Wires (Green/Yellow) -->
+    <path d="M 270 160 C 270 210, 310 230, 310 280" stroke="#10B981" stroke-width="4" fill="none" stroke-linecap="round" />
+    <path d="M 330 160 C 330 210, 360 230, 360 280" stroke="#10B981" stroke-width="4" fill="none" stroke-linecap="round" />
+
+    <!-- Quality Inspection Pass Stamp -->
+    <g transform="translate(290, 230)">
+      <circle cx="50" cy="30" r="32" fill="none" stroke="#10B981" stroke-width="2.5" stroke-dasharray="4" />
+      <text x="50" y="27" fill="#10B981" font-family="'Poppins', sans-serif" font-size="9" font-weight="bold" text-anchor="middle">SAFETY AUDIT</text>
+      <text x="50" y="40" fill="#10B981" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle">PASSED</text>
+    </g>
+  </g>
+
+  <!-- Tag / Watermark -->
+  <rect x="30" y="30" width="230" height="36" rx="6" fill="#1F5FA8" opacity="0.95" />
+  <text x="145" y="53" fill="#FFFFFF" font-family="'Montserrat', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">SAMPLE PROJECT PHOTO</text>
+
+  <text x="760" y="470" fill="#F8FAFC" font-family="'Poppins', sans-serif" font-size="14" font-weight="600" text-anchor="end">Home DB Rewire &amp; Maintenance</text>
+</svg>
