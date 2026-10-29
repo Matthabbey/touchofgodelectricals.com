@@ -49,5 +49,6 @@ The form validates in the browser and shows a success summary with a **Send on W
 
 ## Deploy
 
+- **Cloudflare Workers** (current host): `wrangler.jsonc` serves `out/` as static assets. In the Cloudflare dashboard the build command is `npm run build` and the deploy command is `npx wrangler deploy`. Do not let Cloudflare's auto-config add OpenNext; the site is a static export and has no `.next/standalone` server bundle. To deploy from your machine: `npx wrangler login` once, then `npm run build; npx wrangler deploy`.
 - **Vercel**: push the repo to GitHub and import it; the static export is detected automatically.
 - **Any static host**: run `npm run build` and upload the contents of `out/`.
